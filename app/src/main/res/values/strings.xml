@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">FakeRxJava</string>
+    <string name="title_activity_rx_java_sample">RxJavaSampleActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+
+    <string name="operator_create">Create</string>
+    <string name="operator_map">Map</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

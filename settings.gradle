@@ -1,0 +1,3 @@
+include ':FakeRxJava'
+include ':app'
+rootProject.name = "FakeRxJava"
