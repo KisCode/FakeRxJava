@@ -13,8 +13,11 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import kiscode.fake.rxjava.demo.R;
 
 
@@ -71,7 +74,10 @@ public class RxJavaCreateFragment extends Fragment implements View.OnClickListen
                 emitter.onNext(3);
                 emitter.onComplete();
             }
-        }).subscribe(new Observer<Integer>() {
+        })
+//           .subscribeOn(Schedulers.io())
+//           .observeOn(AndroidSchedulers.mainThread())
+           .subscribe(new Observer<Integer>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
                 Log.i(TAG, "onSubscribe ");
