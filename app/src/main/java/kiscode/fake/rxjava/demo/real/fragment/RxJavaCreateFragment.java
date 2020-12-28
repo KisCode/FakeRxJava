@@ -66,6 +66,13 @@ public class RxJavaCreateFragment extends Fragment implements View.OnClickListen
     }
 
     private void useObservable() {
+        new ObservableOnSubscribe<Integer>(){
+
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
+
+            }
+        };
         Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
@@ -75,8 +82,8 @@ public class RxJavaCreateFragment extends Fragment implements View.OnClickListen
                 emitter.onComplete();
             }
         })
-//           .subscribeOn(Schedulers.io())
-//           .observeOn(AndroidSchedulers.mainThread())
+           .subscribeOn(Schedulers.io())
+           .observeOn(AndroidSchedulers.mainThread())
            .subscribe(new Observer<Integer>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
