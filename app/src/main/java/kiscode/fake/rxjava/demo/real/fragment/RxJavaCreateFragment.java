@@ -1,19 +1,20 @@
 package kiscode.fake.rxjava.demo.real.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -24,7 +25,6 @@ import kiscode.fake.rxjava.demo.R;
 public class RxJavaCreateFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = "RxJavaCreateFragment";
 
-    private Button btnRxjavaOperateObservable;
 
     public RxJavaCreateFragment() {
     }
@@ -49,61 +49,207 @@ public class RxJavaCreateFragment extends Fragment implements View.OnClickListen
     }
 
     private void initView(View view) {
-        btnRxjavaOperateObservable = view.findViewById(R.id.btn_rxjava_operate_observable);
-
-        btnRxjavaOperateObservable.setOnClickListener(this);
+        view.findViewById(R.id.btn_rxjava_operate_create).setOnClickListener(this);
+        view.findViewById(R.id.btn_rxjava_operate_just).setOnClickListener(this);
+        view.findViewById(R.id.btn_rxjava_operate_fromArray).setOnClickListener(this);
+        view.findViewById(R.id.btn_rxjava_operate_empty).setOnClickListener(this);
+        view.findViewById(R.id.btn_rxjava_operate_range).setOnClickListener(this);
+        view.findViewById(R.id.btn_rxjava_operate_interval).setOnClickListener(this);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_rxjava_operate_observable:
+            case R.id.btn_rxjava_operate_create:
                 useObservable();
+                break;
+            case R.id.btn_rxjava_operate_just:
+                useJust();
+                break;
+            case R.id.btn_rxjava_operate_fromArray:
+                useFromArray();
+                break;
+            case R.id.btn_rxjava_operate_empty:
+                useEmpty();
+                break;
+            case R.id.btn_rxjava_operate_range:
+                useRange();
+                break;
+            case R.id.btn_rxjava_operate_interval:
+                useInterval();
                 break;
             default:
                 break;
         }
     }
 
+
     private void useObservable() {
-        new ObservableOnSubscribe<Integer>(){
-
-            @Override
-            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
-
-            }
-        };
         Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
                 emitter.onNext(1);
                 emitter.onNext(2);
                 emitter.onNext(3);
+                emitter.onError(new Exception("New Custom Exception 。。。。"));
                 emitter.onComplete();
             }
         })
-           .subscribeOn(Schedulers.io())
-           .observeOn(AndroidSchedulers.mainThread())
-           .subscribe(new Observer<Integer>() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-                Log.i(TAG, "onSubscribe ");
-            }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Log.i(TAG, "onSubscribe ");
+                    }
 
-            @Override
-            public void onNext(@NonNull Integer integer) {
-                Log.i(TAG, "onNext: " + integer);
-            }
+                    @Override
+                    public void onNext(@NonNull Integer integer) {
+                        Log.i(TAG, "onNext: " + integer);
+                    }
 
-            @Override
-            public void onError(@NonNull Throwable e) {
-                Log.i(TAG, "onError: " + e);
-            }
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.i(TAG, "onError: " + e);
+                    }
 
-            @Override
-            public void onComplete() {
-                Log.i(TAG, "onComplete");
-            }
-        });
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "onComplete");
+                    }
+                });
+    }
+
+
+    private void useJust() {
+        //最大支持10个
+        Observable.just(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+                .subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Log.i(TAG, "onSubscribe ");
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Integer integer) {
+                        Log.i(TAG, "onNext: " + integer);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.i(TAG, "onError: " + e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "onComplete");
+                    }
+                });
+    }
+
+    private void useFromArray() {
+        //最大支持10个
+        Observable.fromArray(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17)
+                .subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Log.i(TAG, "onSubscribe ");
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Integer integer) {
+                        Log.i(TAG, "onNext: " + integer);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.i(TAG, "onError: " + e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "onComplete");
+                    }
+                });
+    }
+
+    private void useEmpty() {
+        //empty 传递数据类型只能为Object ,下游onNext不会被执行
+        Observable.empty()
+                .subscribe(new Observer<Object>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Log.i(TAG, "onSubscribe");
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Object o) {
+                        //empty 下游onNext()方法不会执行
+                        Log.i(TAG, "onNext:" + o);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.i(TAG, "onError:" + e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "onComplete");
+                    }
+                });
+    }
+
+    private void useRange() {
+        //从1开始，每次增1，累计20次 以此发射onNext
+        Observable.range(1, 20)
+                .subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Log.i(TAG, "onSubscribe");
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Integer integer) {
+                        Log.i(TAG, "onNext:" + integer);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.i(TAG, "onError:" + e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "onComplete");
+                    }
+                });
+    }
+
+    private void useInterval() {
+        //interval间隔1秒发射一次
+        Observable.interval(1, TimeUnit.SECONDS)
+                .subscribe(new Observer<Long>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Log.i(TAG, "onSubscribe");
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Long value) {
+                        Log.i(TAG, "onNext:" + value);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.i(TAG, "onError:" + e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "onComplete");
+                    }
+                });
     }
 }
