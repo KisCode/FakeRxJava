@@ -4,12 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/size_padding_screen"
+    android:orientation="vertical"
     tools:context=".real.fragment.RxJavaCreateFragment">
 
     <Button
-        android:id="@+id/btn_rxjava_operate_observable"
+        android:id="@+id/btn_rxjava_operate_create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/operator_create" />
+
+    <Button
+        android:id="@+id/btn_rxjava_operate_just"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/operator_just" />
+
+    <Button
+        android:id="@+id/btn_rxjava_operate_fromArray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/operator_fromArray" />
+
+    <Button
+        android:id="@+id/btn_rxjava_operate_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/operator_empty" />
+
+    <Button
+        android:id="@+id/btn_rxjava_operate_range"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/operator_range" />
+
+    <Button
+        android:id="@+id/btn_rxjava_operate_interval"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/operator_interval" />
 
 </LinearLayout>

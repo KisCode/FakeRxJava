@@ -6,15 +6,8 @@ package kiscode.fake.rxjava;
  * Date : 2020/12/28 17:13
  **/
 public interface Observer<T> {
-    /**
-     * Provides the Observer with the means of cancelling (disposing) the
-     * connection (channel) with the Observable in both
-     * synchronous (from within {@link #onNext(Object)}) and asynchronous manner.
-     * @param d the Disposable instance whose {@link Disposable#dispose()} can
-     * be called anytime to cancel the connection
-     * @since 2.0
-     */
-    void onSubscribe(Disposable d);
+
+    void onSubscribe();
 
     /**
      * Provides the Observer with a new item to observe.

@@ -6,22 +6,19 @@ package kiscode.fake.rxjava;
  * Date : 2020/12/28 17:16
  **/
 public class ObservableCreate<T> extends Observable<T> {
-    private ObservableOnSubscribe<T> source;
+    private final ObservableOnSubscribe<T> source;
 
     public ObservableCreate(ObservableOnSubscribe<T> source) {
         this.source = source;
     }
 
     @Override
-    public void subscribe(Observer<? super T> observer) {
-    }
-
-    @Override
     protected void subscribeActual(Observer<? super T> observer) {
-        CreateEmitter<T> createEmitter = new CreateEmitter<>(observer);
-//        observer.onSubscribe(createEmitter);
+//        CreateEmitter<T> createEmitter = new CreateEmitter<>(observer);
+        observer.onSubscribe();
         try {
-            source.subscribe(createEmitter);
+            //回调绑定
+            source.subscribe(observer);
         } catch (Exception exception) {
             exception.printStackTrace();
         }

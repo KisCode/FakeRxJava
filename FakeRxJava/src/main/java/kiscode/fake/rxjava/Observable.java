@@ -2,7 +2,7 @@ package kiscode.fake.rxjava;
 
 /**
  * Description:
- * Author: kanjianxiong
+ * Author: Keno
  * Date : 2020/12/28 17:13
  **/
 public abstract class Observable<T> implements ObservableSourece<T> {

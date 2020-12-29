@@ -2,7 +2,7 @@ package kiscode.fake.rxjava;
 
 /**
  * Description:
- * Author: kanjianxiong
+ * Author: keno
  * Date : 2020/12/28 17:32
  **/
 public interface Emitter<T> {

@@ -5,6 +5,11 @@
     <string name="tab_text_2">Tab 2</string>
 
     <string name="operator_create">Create</string>
+    <string name="operator_just">Just</string>
+    <string name="operator_fromArray">fromArray</string>
+    <string name="operator_empty">empty</string>
+    <string name="operator_range">range</string>
+    <string name="operator_interval">interval</string>
     <string name="operator_map">Map</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

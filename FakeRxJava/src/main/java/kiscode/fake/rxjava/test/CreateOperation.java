@@ -1,32 +1,34 @@
 package kiscode.fake.rxjava.test;
 
-import kiscode.fake.rxjava.Disposable;
 import kiscode.fake.rxjava.Observable;
-import kiscode.fake.rxjava.ObservableEmitter;
 import kiscode.fake.rxjava.ObservableOnSubscribe;
 import kiscode.fake.rxjava.Observer;
 
 /**
  * Description:
- * Author: kanjianxiong
+ * Author: Keno
  * Date : 2020/12/28 17:26
  **/
 public class CreateOperation {
-    private static final String TAG = "CreateOperation";
+    private static final String TAG = CreateOperation.class.getSimpleName();
 
     public static void main(String[] args) {
-        System.out.println("CreateOperation");
+        testCreateOperation();
+    }
+
+    private static void testCreateOperation() {
         Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+            public void subscribe(Observer<? super Integer> emitter) throws Exception {
                 emitter.onNext(1);
                 emitter.onNext(2);
                 emitter.onNext(3);
+                emitter.onError(new Exception("Exception 。。。。"));
                 emitter.onComplete();
             }
         }).subscribe(new Observer<Integer>() {
             @Override
-            public void onSubscribe(Disposable d) {
+            public void onSubscribe() {
                 System.out.println("onSubscribe");
             }
 
