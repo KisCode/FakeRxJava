@@ -9,20 +9,23 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import kiscode.fake.rxjava.demo.R;
+import kiscode.fake.rxjava.demo.real.fragment.RxJavaConditionFragment;
 import kiscode.fake.rxjava.demo.real.fragment.RxJavaCreateFragment;
+import kiscode.fake.rxjava.demo.real.fragment.RxJavaFilterFragment;
 import kiscode.fake.rxjava.demo.real.fragment.RxJavaMapFragment;
+import kiscode.fake.rxjava.demo.real.fragment.RxJavaMergeFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class RxJavaSamplePagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.operator_create, R.string.operator_map};
+    private static final int[] TAB_TITLES = new int[]{R.string.title_operator_create, R.string.title_operator_map, R.string.title_operator_filter, R.string.title_operator_condition, R.string.title_operator_merge};
     private final Context mContext;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
+    public RxJavaSamplePagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
     }
@@ -30,12 +33,18 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (TAB_TITLES[position]) {
-            case R.string.operator_create:
+            case R.string.title_operator_create:
                 return RxJavaCreateFragment.newInstance();
-//            case R.string.operator_map:
-//                return RxJavaMapFragment.newInstance();
-            default:
+            case R.string.title_operator_map:
                 return RxJavaMapFragment.newInstance();
+            case R.string.title_operator_filter:
+                return RxJavaFilterFragment.newInstance();
+            case R.string.title_operator_condition:
+                return RxJavaConditionFragment.newInstance();
+            case R.string.title_operator_merge:
+                return RxJavaMergeFragment.newInstance();
+            default:
+                return RxJavaConditionFragment.newInstance();
         }
     }
 
