@@ -12,13 +12,19 @@
         <activity
             android:name=".real.RxJavaSampleActivity"
             android:label="@string/title_activity_rx_java_sample"
-            android:theme="@style/Theme.FakeRxJava.NoActionBar"></activity>
-        <activity android:name=".MainActivity">
+            android:theme="@style/Theme.FakeRxJava.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
         </activity>
     </application>
 

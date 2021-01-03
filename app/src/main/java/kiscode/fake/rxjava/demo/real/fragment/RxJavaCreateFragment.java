@@ -21,6 +21,11 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import kiscode.fake.rxjava.demo.R;
 
+/**
+ * Description: RxJava Create操作符使用示例
+ * Author: keno
+ * CreateDate: 2021/1/2 9:41
+ */
 
 public class RxJavaCreateFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = "RxJavaCreateFragment";
@@ -55,6 +60,7 @@ public class RxJavaCreateFragment extends Fragment implements View.OnClickListen
         view.findViewById(R.id.btn_rxjava_operate_empty).setOnClickListener(this);
         view.findViewById(R.id.btn_rxjava_operate_range).setOnClickListener(this);
         view.findViewById(R.id.btn_rxjava_operate_interval).setOnClickListener(this);
+        view.findViewById(R.id.btn_rxjava_operate_intervalRange).setOnClickListener(this);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -78,6 +84,9 @@ public class RxJavaCreateFragment extends Fragment implements View.OnClickListen
                 break;
             case R.id.btn_rxjava_operate_interval:
                 useInterval();
+                break;
+            case R.id.btn_rxjava_operate_intervalRange:
+                useIntervalRange();
                 break;
             default:
                 break;
@@ -252,4 +261,35 @@ public class RxJavaCreateFragment extends Fragment implements View.OnClickListen
                     }
                 });
     }
+
+    /***
+     * IntervalRange 操作符
+     */
+    private void useIntervalRange() {
+        //IntervalRange: 间隔发射器，可视为Interval的加强版
+        //start 开始数值，count累计次数，initDelay 初始等待时间，period 间隔时间点
+        Observable.intervalRange(1, 5, 1, 1, TimeUnit.SECONDS)
+                .subscribe(new Observer<Long>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Log.i(TAG, "onSubscribe");
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Long value) {
+                        Log.i(TAG, "onNext:" + value);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.i(TAG, "onError:" + e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "onComplete");
+                    }
+                });
+    }
+
 }

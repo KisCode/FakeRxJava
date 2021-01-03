@@ -4,13 +4,49 @@
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
 
+    <string name="title_operator_create">Create</string>
     <string name="operator_create">Create</string>
-    <string name="operator_just">Just</string>
+    <string name="operator_just">just</string>
     <string name="operator_fromArray">fromArray</string>
     <string name="operator_empty">empty</string>
     <string name="operator_range">range</string>
     <string name="operator_interval">interval</string>
+
+    <string name="title_operator_map">Map</string>
     <string name="operator_map">Map</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="operator_flatmap">FlatMap</string>
+    <string name="operator_concatMap">ConcatMap</string>
+    <string name="operator_groupby">GroupBy</string>
+    <string name="operator_buffer">Buffer</string>
+
+    <string name="title_operator_filter">Filter</string>
+    <string name="operator_filter">filter</string>
+
+    <string name="operator_take">take</string>
+    <string name="operator_distinct">distinct</string>
+    <string name="operator_skip">skip</string>
+    <string name="operator_elementAt">elementAt</string>
+    <string name="operator_ignoreElement">ignoreElement</string>
+    <string name="operator_first">first</string>
+    <string name="operator_last">last</string>
+    <string name="operator_sample">sample</string>
+
+    <!--  条件操作符  -->
+    <string name="title_operator_condition">Condition</string>
+    <string name="operator_all">all</string>
+    <string name="operator_any">any</string>
+    <string name="operator_contain">contain</string>
+
+    <!--    合并操作符    -->
+    <string name="title_operator_merge">Merge</string>
+    <string name="operator_startWith">startWith</string>
+    <string name="operator_join">join</string>
+    <string name="operator_merge">merge</string>
+    <string name="operator_zip">zip</string>
+    <string name="operator_switch">switch</string>
+    <string name="operator_concat">concat</string>
+    <string name="operator_concatWith">concatWith</string>
+    <string name="operator_mergeWith">mergeWith</string>
+    <string name="operator_intervalRange">intervalRange</string>
 
 </resources>
