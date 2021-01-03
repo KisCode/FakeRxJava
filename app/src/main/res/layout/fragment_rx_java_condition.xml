@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/size_padding_screen"
+    android:orientation="vertical"
+    tools:context=".real.fragment.RxJavaCreateFragment">
+
+    <Button
+        android:id="@+id/btn_rxjava_operate_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/operator_all" />
+
+
+    <Button
+        android:id="@+id/btn_rxjava_operate_any"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/operator_any" />
+    <Button
+        android:id="@+id/btn_rxjava_operate_contain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/operator_contain" />
+
+
+</LinearLayout>

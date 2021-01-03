@@ -9,12 +9,8 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
-import java.util.concurrent.TimeUnit;
-
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
 import kiscode.fake.rxjava.demo.R;
@@ -50,7 +46,7 @@ public class RxJavaConditionFragment extends Fragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_rx_java_conditaion, container, false);
+        View view = inflater.inflate(R.layout.fragment_rx_java_condition, container, false);
 
         initView(view);
 
