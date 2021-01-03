@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/size_padding_screen"
+    tools:context=".real.fragment.RxJavaCreateFragment">
+
+    <Button
+        android:id="@+id/btn_rxjava_asyn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rxjava_scheduler_asynchronous_thread" />
+
+
+    <Button
+        android:id="@+id/btn_rxjava_syn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rxjava_scheduler_synchronization_thread" />
+
+    <Button
+        android:id="@+id/btn_rxjava_download_picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rxjava_download_picture" />
+
+    <ImageView
+        android:id="@+id/iv_picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">FakeRxJava</string>
     <string name="title_activity_rx_java_sample">RxJavaSampleActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
 
+    <!--  创建型操作符  -->
     <string name="title_operator_create">Create</string>
     <string name="operator_create">Create</string>
     <string name="operator_just">just</string>
@@ -12,6 +11,7 @@
     <string name="operator_range">range</string>
     <string name="operator_interval">interval</string>
 
+    <!--  变换型操作符  -->
     <string name="title_operator_map">Map</string>
     <string name="operator_map">Map</string>
     <string name="operator_flatmap">FlatMap</string>
@@ -19,9 +19,9 @@
     <string name="operator_groupby">GroupBy</string>
     <string name="operator_buffer">Buffer</string>
 
+    <!--  过滤型操作符  -->
     <string name="title_operator_filter">Filter</string>
     <string name="operator_filter">filter</string>
-
     <string name="operator_take">take</string>
     <string name="operator_distinct">distinct</string>
     <string name="operator_skip">skip</string>
@@ -55,5 +55,11 @@
     <string name="operator_onErrorResumeNext">onErrorResumeNext</string>
     <string name="operator_onExceptionResumeNext">onExceptionResumeNext</string>
     <string name="operator_retry">retry</string>
+
+    <!--    异常处理    -->
+    <string name="title_operator_scheduler">Scheduler</string>
+    <string name="rxjava_scheduler_asynchronous_thread">Asynchronous thread</string>
+    <string name="rxjava_scheduler_synchronization_thread">Synchronization thread</string>
+    <string name="rxjava_download_picture">Download Picture</string>
 
 </resources>

@@ -11,10 +11,12 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import kiscode.fake.rxjava.demo.R;
 import kiscode.fake.rxjava.demo.real.fragment.RxJavaConditionFragment;
 import kiscode.fake.rxjava.demo.real.fragment.RxJavaCreateFragment;
+import kiscode.fake.rxjava.demo.real.fragment.RxJavaEmptyFragment;
 import kiscode.fake.rxjava.demo.real.fragment.RxJavaErrorHandleFragment;
 import kiscode.fake.rxjava.demo.real.fragment.RxJavaFilterFragment;
 import kiscode.fake.rxjava.demo.real.fragment.RxJavaMapFragment;
 import kiscode.fake.rxjava.demo.real.fragment.RxJavaMergeFragment;
+import kiscode.fake.rxjava.demo.real.fragment.RxJavaSchedulerFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -23,7 +25,7 @@ import kiscode.fake.rxjava.demo.real.fragment.RxJavaMergeFragment;
 public class RxJavaSamplePagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.title_operator_create, R.string.title_operator_map, R.string.title_operator_filter, R.string.title_operator_condition, R.string.title_operator_merge, R.string.title_operator_error};
+    private static final int[] TAB_TITLES = new int[]{R.string.title_operator_create, R.string.title_operator_map, R.string.title_operator_filter, R.string.title_operator_condition, R.string.title_operator_merge, R.string.title_operator_error, R.string.title_operator_scheduler};
     private final Context mContext;
 
     public RxJavaSamplePagerAdapter(Context context, FragmentManager fm) {
@@ -46,8 +48,10 @@ public class RxJavaSamplePagerAdapter extends FragmentPagerAdapter {
                 return RxJavaMergeFragment.newInstance();
             case R.string.title_operator_error:
                 return RxJavaErrorHandleFragment.newInstance();
+            case R.string.title_operator_scheduler:
+                return RxJavaSchedulerFragment.newInstance();
             default:
-                return RxJavaConditionFragment.newInstance();
+                return RxJavaEmptyFragment.newInstance();
         }
     }
 
