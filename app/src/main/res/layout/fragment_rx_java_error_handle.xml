@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/size_padding_screen"
+    tools:context=".real.fragment.RxJavaCreateFragment">
+
+    <Button
+        android:id="@+id/btn_rxjava_operate_onErrorReturn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/operator_onErrorReturn" />
+
+    <Button
+        android:id="@+id/btn_rxjava_operate_onErrorResumeNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/operator_onErrorResumeNext" />
+
+    <Button
+        android:id="@+id/btn_rxjava_operate_onExceptionResumeNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/operator_onExceptionResumeNext" />
+
+    <Button
+        android:id="@+id/btn_rxjava_operate_retry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/operator_retry" />
+</LinearLayout>

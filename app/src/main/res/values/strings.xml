@@ -49,4 +49,11 @@
     <string name="operator_mergeWith">mergeWith</string>
     <string name="operator_intervalRange">intervalRange</string>
 
+    <!--    异常处理    -->
+    <string name="title_operator_error">ErrorHandle</string>
+    <string name="operator_onErrorReturn">onErrorReturn</string>
+    <string name="operator_onErrorResumeNext">onErrorResumeNext</string>
+    <string name="operator_onExceptionResumeNext">onExceptionResumeNext</string>
+    <string name="operator_retry">retry</string>
+
 </resources>
