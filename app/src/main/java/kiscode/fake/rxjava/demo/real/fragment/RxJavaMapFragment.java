@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
@@ -72,6 +73,10 @@ public class RxJavaMapFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
+        if (v instanceof Button) {
+            Log.i(TAG, "\n-------------------------" + ((Button) v).getText() + "-------------------------\n");
+        }
+
         switch (v.getId()) {
             case R.id.btn_rxjava_operate_map:
                 useMap();

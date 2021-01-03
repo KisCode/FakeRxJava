@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/size_padding_screen"
+    android:orientation="vertical"
     tools:context=".real.fragment.RxJavaCreateFragment">
 
     <Button
@@ -11,5 +12,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/operator_map" />
+
+    <Button
+        android:id="@+id/btn_rxjava_operate_flatmap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/operator_flatmap" />
+
+
+    <Button
+        android:id="@+id/btn_rxjava_operate_concatMap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/operator_concatMap" />
+
+
+    <Button
+        android:id="@+id/btn_rxjava_operate_buffer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/operator_buffer" />
+
+
+    <Button
+        android:id="@+id/btn_rxjava_operate_groupby"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/operator_groupby" />
 
 </LinearLayout>
