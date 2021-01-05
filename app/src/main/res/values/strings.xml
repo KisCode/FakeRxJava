@@ -62,4 +62,8 @@
     <string name="rxjava_scheduler_synchronization_thread">Synchronization thread</string>
     <string name="rxjava_download_picture">Download Picture</string>
 
+
+    <!--    背压    -->
+    <string name="title_operator_flowable">Flowable</string>
+
 </resources>

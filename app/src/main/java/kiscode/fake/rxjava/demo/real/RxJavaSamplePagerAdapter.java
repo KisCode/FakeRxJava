@@ -14,6 +14,7 @@ import kiscode.fake.rxjava.demo.real.fragment.RxJavaCreateFragment;
 import kiscode.fake.rxjava.demo.real.fragment.RxJavaEmptyFragment;
 import kiscode.fake.rxjava.demo.real.fragment.RxJavaErrorHandleFragment;
 import kiscode.fake.rxjava.demo.real.fragment.RxJavaFilterFragment;
+import kiscode.fake.rxjava.demo.real.fragment.RxJavaFlowableFragment;
 import kiscode.fake.rxjava.demo.real.fragment.RxJavaMapFragment;
 import kiscode.fake.rxjava.demo.real.fragment.RxJavaMergeFragment;
 import kiscode.fake.rxjava.demo.real.fragment.RxJavaSchedulerFragment;
@@ -25,11 +26,11 @@ import kiscode.fake.rxjava.demo.real.fragment.RxJavaSchedulerFragment;
 public class RxJavaSamplePagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.title_operator_create, R.string.title_operator_map, R.string.title_operator_filter, R.string.title_operator_condition, R.string.title_operator_merge, R.string.title_operator_error, R.string.title_operator_scheduler};
+    private static final int[] TAB_TITLES = new int[]{R.string.title_operator_create, R.string.title_operator_map, R.string.title_operator_filter, R.string.title_operator_condition, R.string.title_operator_merge, R.string.title_operator_error, R.string.title_operator_scheduler, R.string.title_operator_flowable};
     private final Context mContext;
 
     public RxJavaSamplePagerAdapter(Context context, FragmentManager fm) {
-        super(fm);
+        super(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mContext = context;
     }
 
@@ -50,6 +51,8 @@ public class RxJavaSamplePagerAdapter extends FragmentPagerAdapter {
                 return RxJavaErrorHandleFragment.newInstance();
             case R.string.title_operator_scheduler:
                 return RxJavaSchedulerFragment.newInstance();
+            case R.string.title_operator_flowable:
+                return RxJavaFlowableFragment.newInstance();
             default:
                 return RxJavaEmptyFragment.newInstance();
         }
