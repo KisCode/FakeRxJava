@@ -18,4 +18,10 @@
         android:layout_height="wrap_content"
         android:text="@string/rxjava_scheduler_asynchronous_thread" />
 
+    <Button
+        android:id="@+id/btn_rxjava_flowable_request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rxjava_request" />
+
 </LinearLayout>

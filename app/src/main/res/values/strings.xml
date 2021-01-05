@@ -65,5 +65,6 @@
 
     <!--    背压    -->
     <string name="title_operator_flowable">Flowable</string>
+    <string name="rxjava_request">Request</string>
 
 </resources>
