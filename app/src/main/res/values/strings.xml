@@ -67,4 +67,9 @@
     <string name="title_operator_flowable">Flowable</string>
     <string name="rxjava_request">Request</string>
 
+
+    <!--    功能操作符    -->
+    <string name="title_operator_function">Function</string>
+    <string name="operator_delay">delay</string>
+    <string name="operator_doOnNext">doOnNext</string>
 </resources>
