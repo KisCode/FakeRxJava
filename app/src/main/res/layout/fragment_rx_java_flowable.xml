@@ -8,6 +8,11 @@
     tools:context=".real.fragment.RxJavaCreateFragment">
 
     <Button
+        android:id="@+id/btn_rxjava_backpress_exception"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rxjava_backpress_exception" />
+    <Button
         android:id="@+id/btn_rxjava_flowable_sync"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,4 +29,9 @@
         android:layout_height="wrap_content"
         android:text="@string/rxjava_request" />
 
+    <Button
+        android:id="@+id/btn_rxjava_flowable_latest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rxjava_backpress_latest" />
 </LinearLayout>

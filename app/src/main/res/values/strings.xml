@@ -65,11 +65,13 @@
 
     <!--    背压    -->
     <string name="title_operator_flowable">Flowable</string>
-    <string name="rxjava_request">Request</string>
+    <string name="rxjava_backpress_exception">BackPress exception</string>
+    <string name="rxjava_request">Subscription request</string>
 
 
     <!--    功能操作符    -->
     <string name="title_operator_function">Function</string>
     <string name="operator_delay">delay</string>
     <string name="operator_doOnNext">doOnNext</string>
+    <string name="rxjava_backpress_latest">Backpress Latest</string>
 </resources>
