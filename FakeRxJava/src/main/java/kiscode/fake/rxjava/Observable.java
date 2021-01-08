@@ -14,6 +14,20 @@ public abstract class Observable<T> implements ObservableSourece<T> {
         return new ObservableCreate<T>(source);
     }
 
+    public static <T> Observable<T> fromArray(T... items) {
+        return new ObservableFromArray<>(items);
+    }
+
+    public static <T> Observable<T> just(T item) {
+        return fromArray(item);
+    }
+    public static <T> Observable<T> just(T item, T item2) {
+        return fromArray(item, item2);
+    }
+    public static <T> Observable<T> just(T item, T item2, T item3) {
+        return fromArray(item, item2, item3);
+    }
+
     @Override
     public void subscribe(Observer<? super T> observer) {
         subscribeActual(observer);
