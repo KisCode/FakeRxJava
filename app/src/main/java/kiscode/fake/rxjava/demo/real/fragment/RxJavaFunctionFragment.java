@@ -25,6 +25,9 @@ import kiscode.fake.rxjava.demo.R;
 
 /**
  * Description: 功能函数
+ *  1. delay 延迟x秒发射
+ *  2. doOnNext/doOnComplete/doOnError 在下游执行之前回调该方法
+ *  3. doAfterNext在 下游onNext执行之后回调该方法
  * Author: keno
  * CreateDate: 2021/1/6 22:35
  */
@@ -57,6 +60,7 @@ public class RxJavaFunctionFragment extends Fragment implements View.OnClickList
     private void initView(View view) {
         view.findViewById(R.id.btn_rxjava_delay).setOnClickListener(this);
         view.findViewById(R.id.btn_rxjava_doOnNext).setOnClickListener(this);
+        view.findViewById(R.id.btn_rxjava_doAfterNext).setOnClickListener(this);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -72,6 +76,9 @@ public class RxJavaFunctionFragment extends Fragment implements View.OnClickList
                 break;
             case R.id.btn_rxjava_doOnNext:
                 useDoOnNext();
+                break;
+            case R.id.btn_rxjava_doAfterNext:
+                useDoAfterNext();
                 break;
         }
     }
@@ -92,9 +99,7 @@ public class RxJavaFunctionFragment extends Fragment implements View.OnClickList
 
 
     /***
-     * doOnNext在 下游onNext前回调该方法
-     * doOnError在 下游onError前回调该方法
-     * doOnComplete在 下游onComplete前回调该方法
+     * doAfterNext在 下游onNext执行之后回调该方法
      */
     private void useDoOnNext() {
         Observable.create(new ObservableOnSubscribe<Integer>() {
@@ -141,7 +146,46 @@ public class RxJavaFunctionFragment extends Fragment implements View.OnClickList
                 Log.i(TAG, "onComplete");
             }
         });
+
+
+
     }
 
+    private void useDoAfterNext() {
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
+                emitter.onNext(1);
+                emitter.onNext(2);
+                emitter.onNext(3);
+                emitter.onComplete();
+            }
+        }).doAfterNext(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                Log.i(TAG,"doAfterNext accept :"+integer);
+            }
+        }).subscribe(new Observer<Integer>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.i(TAG, "onSubscribe");
+            }
+
+            @Override
+            public void onNext(@NonNull Integer value) {
+                Log.i(TAG, "onNext:" + value);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.i(TAG, "onError:" + e);
+            }
+
+            @Override
+            public void onComplete() {
+                Log.i(TAG, "onComplete");
+            }
+        });
+    }
 
 }
