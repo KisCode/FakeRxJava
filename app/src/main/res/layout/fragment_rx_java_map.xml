@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/size_padding_screen"
     android:orientation="vertical"
+    android:padding="@dimen/size_padding_screen"
     tools:context=".real.fragment.RxJavaCreateFragment">
 
     <Button
@@ -19,6 +19,11 @@
         android:layout_height="wrap_content"
         android:text="@string/operator_flatmap" />
 
+    <Button
+        android:id="@+id/btn_rxjava_operate_flatmap_with_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/operator_flatmap_with_erro" />
 
     <Button
         android:id="@+id/btn_rxjava_operate_concatMap"

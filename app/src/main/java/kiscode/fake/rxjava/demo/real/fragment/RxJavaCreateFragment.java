@@ -17,6 +17,7 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import kiscode.fake.rxjava.demo.R;
@@ -30,6 +31,7 @@ import kiscode.fake.rxjava.demo.R;
 public class RxJavaCreateFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = "RxJavaCreateFragment";
 
+    private CompositeDisposable compositeDisposable;
 
     public RxJavaCreateFragment() {
     }
@@ -42,6 +44,8 @@ public class RxJavaCreateFragment extends Fragment implements View.OnClickListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate");
+        compositeDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -51,6 +55,16 @@ public class RxJavaCreateFragment extends Fragment implements View.OnClickListen
         View rootView = inflater.inflate(R.layout.fragment_rx_java_create, container, false);
         initView(rootView);
         return rootView;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy");
+        if (compositeDisposable != null) {
+            compositeDisposable.dispose();
+            compositeDisposable = null;
+        }
     }
 
     private void initView(View view) {
@@ -98,19 +112,28 @@ public class RxJavaCreateFragment extends Fragment implements View.OnClickListen
         Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
-                emitter.onNext(1);
+               /* emitter.onNext(1);
                 emitter.onNext(2);
                 emitter.onNext(3);
                 emitter.onError(new Exception("New Custom Exception 。。。。"));
+                emitter.onComplete();*/
+                for (int i = 100; i < 1000; i++) {
+                    emitter.onNext(i);
+                    try {
+                        Thread.sleep(i);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
                 emitter.onComplete();
             }
-        })
-                .subscribeOn(Schedulers.io())
+        }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Integer>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         Log.i(TAG, "onSubscribe ");
+                        compositeDisposable.add(d);
                     }
 
                     @Override
@@ -190,6 +213,7 @@ public class RxJavaCreateFragment extends Fragment implements View.OnClickListen
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         Log.i(TAG, "onSubscribe");
+                        compositeDisposable.add(d);
                     }
 
                     @Override
@@ -217,6 +241,7 @@ public class RxJavaCreateFragment extends Fragment implements View.OnClickListen
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         Log.i(TAG, "onSubscribe");
+                        compositeDisposable.add(d);
                     }
 
                     @Override
@@ -243,6 +268,7 @@ public class RxJavaCreateFragment extends Fragment implements View.OnClickListen
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         Log.i(TAG, "onSubscribe");
+                        compositeDisposable.add(d);
                     }
 
                     @Override
@@ -273,6 +299,7 @@ public class RxJavaCreateFragment extends Fragment implements View.OnClickListen
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         Log.i(TAG, "onSubscribe");
+                        compositeDisposable.add(d);
                     }
 
                     @Override

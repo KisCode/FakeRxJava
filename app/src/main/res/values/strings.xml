@@ -18,6 +18,7 @@
     <string name="operator_concatMap">ConcatMap</string>
     <string name="operator_groupby">GroupBy</string>
     <string name="operator_buffer">Buffer</string>
+    <string name="operator_flatmap_with_erro">FlatMap With Error</string>
 
     <!--  过滤型操作符  -->
     <string name="title_operator_filter">Filter</string>

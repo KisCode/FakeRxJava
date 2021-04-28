@@ -18,11 +18,14 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.observables.GroupedObservable;
+import io.reactivex.schedulers.Schedulers;
 import kiscode.fake.rxjava.demo.R;
 
 /**
@@ -32,13 +35,14 @@ import kiscode.fake.rxjava.demo.R;
  * 2. flatmap 把上游Int 变换为ObservableSource<String>{还能多次发射事件} 观察者String类型 ；不排序
  * 3. contactmap 把上游Int 变换为ObservableSource<String>{还能多次发射事件} 观察者String类型 ；排序
  * 4. groupby 把上游Int 变换为String分组 观察者GroupedObservable类型 {key="",value为GroupedObservable再次订阅具体分组内容}
- * 4. buffer 把上游100个Int buffer(20) 分批次发射 ，观察者List<Integer>
+ * 5. buffer 把上游100个Int buffer(20) 分批次发射 ，观察者List<Integer>
  * Author: keno
  * CreateDate: 2021/1/2 9:42
  */
 public class RxJavaMapFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "RxJavaMapFragment";
+    private CompositeDisposable compositeDisposable;
 
     public RxJavaMapFragment() {
     }
@@ -51,6 +55,7 @@ public class RxJavaMapFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        compositeDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -63,12 +68,22 @@ public class RxJavaMapFragment extends Fragment implements View.OnClickListener 
         return view;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy");
+        if (compositeDisposable != null) {
+            compositeDisposable.dispose();
+        }
+    }
+
     private void initView(View view) {
         view.findViewById(R.id.btn_rxjava_operate_map).setOnClickListener(this);
         view.findViewById(R.id.btn_rxjava_operate_flatmap).setOnClickListener(this);
         view.findViewById(R.id.btn_rxjava_operate_concatMap).setOnClickListener(this);
         view.findViewById(R.id.btn_rxjava_operate_buffer).setOnClickListener(this);
         view.findViewById(R.id.btn_rxjava_operate_groupby).setOnClickListener(this);
+        view.findViewById(R.id.btn_rxjava_operate_flatmap_with_error).setOnClickListener(this);
     }
 
     @Override
@@ -84,6 +99,9 @@ public class RxJavaMapFragment extends Fragment implements View.OnClickListener 
             case R.id.btn_rxjava_operate_flatmap:
                 useFlatMap();
                 break;
+            case R.id.btn_rxjava_operate_flatmap_with_error:
+                useFlatMapWithError();
+                break;
             case R.id.btn_rxjava_operate_concatMap:
                 useContactMap();
                 break;
@@ -95,7 +113,6 @@ public class RxJavaMapFragment extends Fragment implements View.OnClickListener 
                 break;
         }
     }
-
 
     /***
      *  map操作符实例：
@@ -143,10 +160,16 @@ public class RxJavaMapFragment extends Fragment implements View.OnClickListener 
      * FlatMap变换操作符
      */
     private void useFlatMap() {
-        Observable.just(100, 200, 300, 400, 500)
+        Disposable disposable = Observable.just(1000, 2000, 3000, 4000, 5000)
                 .flatMap(new Function<Integer, ObservableSource<String>>() {
                     @Override
                     public ObservableSource<String> apply(@NonNull Integer integer) throws Exception {
+                        Log.i(TAG, "flatMap:" + Thread.currentThread().getName());
+                        try {
+                            Thread.sleep(integer);
+                        } catch (Exception e) {
+                            Log.e(TAG, "sleep :" + e);
+                        }
                         //可多次发射 不排序
                         List<String> list = new ArrayList<>();
                         for (int i = 1; i <= 3; i++) {
@@ -155,19 +178,74 @@ public class RxJavaMapFragment extends Fragment implements View.OnClickListener 
                         return Observable.fromIterable(list).delay(1, TimeUnit.SECONDS);
                     }
                 })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        Log.i(TAG, s);
+                        Log.i(TAG, s + " in " + Thread.currentThread().getName());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.e(TAG, throwable + " in " + Thread.currentThread().getName());
                     }
                 });
+        compositeDisposable.add(disposable);
     }
+
+
+    private void useFlatMapWithError() {
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
+                for (int i = 1; i < 5; i++) {
+                    emitter.onNext(i);
+                }
+            }
+        }).flatMap(new Function<Integer, ObservableSource<String>>() {
+            @Override
+            public ObservableSource<String> apply(@NonNull Integer integer) throws Exception {
+                if (integer >= 4) {
+                    return Observable.error(new Exception(integer + " 出错了！！！"));
+                }
+                String result = "flatMap变换 " + integer;
+                return Observable.just(result);
+            }
+        }).map(new Function<String, String>() {
+            @Override
+            public String apply(@NonNull String s) throws Exception {
+                return "map变换 " + s;
+            }
+        }).subscribe(new Observer<String>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@NonNull String s) {
+                Log.i(TAG, s);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable throwable) {
+                Log.e(TAG, "onError useFlatMapWithError " + throwable);
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
 
     /***
      * concatMap变换操作符 (排序)
      */
     private void useContactMap() {
-        Observable.just(100, 200, 300, 400, 500)
+        Disposable disposable = Observable.just(100, 200, 300, 400, 500)
                 .concatMap(new Function<Integer, ObservableSource<String>>() {
                     @Override
                     public ObservableSource<String> apply(@NonNull Integer integer) throws Exception {
@@ -184,13 +262,14 @@ public class RxJavaMapFragment extends Fragment implements View.OnClickListener 
                         Log.i(TAG, s);
                     }
                 });
+        compositeDisposable.add(disposable);
     }
 
     /***
      * GroupBy (分组)
      */
     private void useGroupBy() {
-        Observable.just(550, 800, 900, 1000, 2000, 3000, 4000)
+        Disposable disposable = Observable.just(550, 800, 900, 1000, 2000, 3000, 4000)
                 .groupBy(new Function<Integer, String>() {
                     @Override
                     public String apply(@NonNull Integer integer) throws Exception {
@@ -213,6 +292,7 @@ public class RxJavaMapFragment extends Fragment implements View.OnClickListener 
                         });
                     }
                 });
+        compositeDisposable.add(disposable);
     }
 
 
@@ -220,21 +300,22 @@ public class RxJavaMapFragment extends Fragment implements View.OnClickListener 
      * buffer，将多个事件分批次发射
      */
     private void useBuffer() {
-        Observable.create(new ObservableOnSubscribe<Integer>() {
+        Disposable disposable = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
                 for (int i = 0; i < 200; i++) {
                     emitter.onNext(i);
                 }
             }
-        })
-                .buffer(40)
+        }).buffer(40)
                 .subscribe(new Consumer<List<Integer>>() {
                     @Override
                     public void accept(List<Integer> integers) throws Exception {
                         Log.i(TAG, "accept：" + integers);
                     }
                 });
+
+        compositeDisposable.add(disposable);
     }
 
 }
