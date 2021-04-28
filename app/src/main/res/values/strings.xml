@@ -75,4 +75,7 @@
     <string name="operator_delay">delay</string>
     <string name="operator_doOnNext">doOnNext</string>
     <string name="rxjava_backpress_latest">Backpress Latest</string>
+    <string name="operator_doAfterNext">doAfterNext</string>
+    <string name="operator_timeout">timeout</string>
+    <string name="operator_timestamp">timestamp</string>
 </resources>
