@@ -28,6 +28,12 @@ public abstract class Observable<T> implements ObservableSourece<T> {
         return fromArray(item, item2, item3);
     }
 
+    public final <R> Observable<R> map(Function<T,R> function){
+
+//        return new ObservableMap<T,R>(this,function);
+        return null;
+    }
+
     @Override
     public void subscribe(Observer<? super T> observer) {
         subscribeActual(observer);
